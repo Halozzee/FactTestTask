@@ -7,10 +7,20 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\DataLayer\DataLayer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\img\dataobjects\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\img\utility\png-clipart-computer-icons-smiley-sadness-emoticon-sad-miscellaneous-face.png" />
   </ItemGroup>
 
 </Project>

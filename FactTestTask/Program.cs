@@ -17,18 +17,8 @@ namespace FactTestTask
         public static void Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
-
-            using (var scope = host.Services.CreateScope())
-            {
-                var services = scope.ServiceProvider;
-
-                var context = services.GetRequiredService<EFDBContext>();
-                DrinkDeliveryMaster.SetContext(context);
-
-                if(DrinkDeliveryMaster.IsSampleDataNeeded())
-                    SampleData.InitData();
-            }
-
+            if (DrinkDeliveryMaster.IsSampleDataNeeded())
+                SampleData.InitData();
             host.Run();
         }
 

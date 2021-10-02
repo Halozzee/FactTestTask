@@ -1,0 +1,36 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model List<DataLayer.Entities.DrinkWithAvailability>
+
+<table class="table">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Имя</th>
+            <th scope="col">Цена</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr id="@item.Drink.Id tr">
+            <th scope="row">@item.Drink.Id</th>
+            <td>@item.Drink.Name</td>
+            <td>@item.Drink.Cost</td>
+            @if (@item.DrinkAvailability.IsAvailable)
+            {
+                <td class="text-right"><button type="button" id="@item.Drink.Id edit-btn" class="btn btn-success">Купить</button></td>
+            }
+            else
+            {
+                <td class="text-right"><button type="button" id="@item.Drink.Id edit-btn" class="btn btn-success" disabled>Нет в наличии</button></td>
+            }
+        </tr>
+        }
+    </tbody>
+</table>

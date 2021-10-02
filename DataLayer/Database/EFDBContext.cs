@@ -12,11 +12,18 @@ namespace DataLayer.Database
     public class EFDBContext : DbContext
     {
         public DbSet<Drink> Drinks { get; set; }
-        public DbSet<DrinkAvailability> DrinkAmounts { get; set; }
+        public DbSet<DrinkAvailability> DrinkAvailabilities { get; set; }
+
+        public EFDBContext() { }
 
         public EFDBContext(DbContextOptions<EFDBContext> ops) : base(ops) 
         {
 
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB; Database=TestDb; Trusted_Connection=True");
         }
     }
 

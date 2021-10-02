@@ -1,0 +1,52 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model List<DataLayer.Entities.DrinkWithAvailability>
+<br />
+<br />
+<div class="text-center">
+    <h1>Добро пожаловать.</h1>
+    <h2>Что мы изменим сегодня?</h2>
+</div>
+<br />
+<br />
+<div id="btn-group">
+    <button type="button" id="1CoinerBtn" class="btn btn-danger">Запретить монеты номиналом 1</button>
+    <button type="button" id="2CoinerBtn" class="btn btn-danger">Запретить монеты номиналом 2</button>
+    <button type="button" id="5CoinerBtn" class="btn btn-danger">Запретить монеты номиналом 5</button>
+    <button type="button" id="10CoinerBtn" class="btn btn-danger">Запретить монеты номиналом 10</button>
+</div>
+<br />
+<br />
+<h4>Напитки</h4>
+<br />
+<div class="col-md-auto border border-primary" style="padding: 20px; overflow: hidden;">
+    <h4>Новый напиток</h4>
+    <input type="text" size="40" id="drinkNameTb" placeholder="Введите название" style="width: 200px">
+    <input type="number" size="40" id="drinkAmountTb" placeholder="Введите количество" style="width: 200px">
+    <input type="number" size="40" id="drinkCostNum" placeholder="Введите цену" style="width: 200px">
+    <input type="checkbox" id="drinkAvailabilityCb" name="drinkAv">
+    <label for="drinkAv">Напиток доступен?</label><br>
+    <button class="btn btn-success" onclick="saveDrinkChanges(this)">Добавить</button>
+</div>
+<table class="table">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Имя</th>
+            <th scope="col">Количество</th>
+            <th scope="col">Цена</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody id="tableBody">
+        @foreach (var item in Model)
+        {
+            @Html.Partial("_addDrink", item);
+        }
+    </tbody>
+</table>
+<script src="~/js/adminPage.js" asp-append-version="true"></script>
