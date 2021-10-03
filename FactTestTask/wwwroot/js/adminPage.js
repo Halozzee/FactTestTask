@@ -49,6 +49,8 @@ function startEditingDrink(drinkEditBtnInfo)
 			drinkAmountTb.value = recievedObject.drinkAmount;
 			drinkCostNum.value = recievedObject.drinkCost;
 			drinkAvailabilityCb.checked = recievedObject.isDrinkAvailable;
+			let changeBtn = document.getElementById("changeBtn");
+			changeBtn.innerHTML = "Сохранить";
 			console.log("Item edit started!");
 		}
 	});
@@ -132,16 +134,14 @@ function editDrink(drinkEditBtnInfo)
 
 		success: function (data)
 		{
-			console.log("on data: " + data)
+			console.log("on data: " + data);
 			console.log("Item edited!");
+			changeBtn.innerHTML = "Создать";
+			updateEditedTableElement(editingDrinkId, drinkNameTb.value, drinkAmountTb.value, drinkCostNum.value);
+			resetInputFields();
+			editingDrinkId = -1;
 		}
 	});
-
-	updateEditedTableElement(editingDrinkId, drinkNameTb.value, drinkAmountTb.value, drinkCostNum.value);
-
-	resetInputFields();
-
-	editingDrinkId = -1;
 }
 
 function resetInputFields()

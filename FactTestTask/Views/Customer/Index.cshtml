@@ -2,20 +2,31 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    var Coiner1Disabler = DataLayer.Entities.CustomerData.IsOneCoinAllowed  ? ""            : "disabled";
+    var Coiner2Disabler = DataLayer.Entities.CustomerData.IsTwoCoinAllowed  ? ""            : "disabled";
+    var Coiner5Disabler = DataLayer.Entities.CustomerData.IsFiveCoinAllowed ? ""            : "disabled";
+    var Coiner10Disabler = DataLayer.Entities.CustomerData.IsTenCoinAllowed ? ""            : "disabled";
+
+    var Coiner1Styler   = DataLayer.Entities.CustomerData.IsOneCoinAllowed  ? "btn-warning" : "btn-danger";
+    var Coiner2Styler   = DataLayer.Entities.CustomerData.IsTwoCoinAllowed  ? "btn-warning" : "btn-danger";
+    var Coiner5Styler   = DataLayer.Entities.CustomerData.IsFiveCoinAllowed ? "btn-warning" : "btn-danger";
+    var Coiner10Styler  = DataLayer.Entities.CustomerData.IsTenCoinAllowed  ? "btn-warning" : "btn-danger";
 }
 
-<h2>Сейчас в автомате с напитками: 0</h2>
-<br />
+<h2 id="balanceH">Баланс: @DataLayer.Entities.CustomerData.CurrentBalance</h2>
+<br/>
 <div class="row">
     <div class="col-md-auto border border-primary" style="padding: 20px; overflow: hidden;">
         <h4>Выбор монет</h4>
         <br/>
-        <button type="button" id="1CoinerBtn" class="btn btn-warning">1</button>
-        <button type="button" id="2CoinerBtn" class="btn btn-warning">2</button>
-        <button type="button" id="5CoinerBtn" class="btn btn-warning">5</button>
-        <button type="button" id="10CoinerBtn" class="btn btn-warning">10</button>
+        <button type="button" id="1CoinerBtn"   class="btn @Coiner1Styler" @Coiner1Disabler onclick="addToBalance(1)" >1</button>
+        <button type="button" id="2CoinerBtn"   class="btn @Coiner2Styler" @Coiner2Disabler onclick="addToBalance(2)">2</button>
+        <button type="button" id="5CoinerBtn"   class="btn @Coiner5Styler" @Coiner5Disabler onclick="addToBalance(5)">5</button>
+        <button type="button" id="10CoinerBtn"  class="btn @Coiner10Styler" @Coiner10Disabler onclick="addToBalance(10)">10</button>
     </div>
     <div class="col-md-auto" id="drinkBuyContainer">
-
+        @Html.Partial("_drinksBuyMenu", DataLayer.Database.DrinkDeliveryMaster.GetAllDrinkWithAvailabilityList());
     </div>
 </div>
+
+<script src="~/js/customerPage.js" asp-append-version="true"></script>

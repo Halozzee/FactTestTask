@@ -3,8 +3,10 @@ using DataLayer.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using System.Linq;
 using System.Threading.Tasks;
+using FactTestTask.Models;
 
 namespace FactTestTask.Controllers
 {
@@ -21,16 +23,44 @@ namespace FactTestTask.Controllers
             return PartialView(drinkAvsList);
         }
 
-        public void AddToBalance(int toAdd) 
+        public string AddToBalance(int toAdd) 
         {
             CustomerData.CurrentBalance += toAdd;
+            return CustomerData.CurrentBalance.ToString();
         }
 
-        public void BuyDrink(int drinkId)
+        public string BuyDrink(int drinkId)
         {
-            if (DrinkDeliveryMaster.IsDrinkAvailable(drinkId) && CustomerData.CurrentBalance >= DrinkDeliveryMaster.GetDrinkById(drinkId).Cost)
+            DrinkTransactionResult result = new DrinkTransactionResult();
+
+            result.DrinkId = drinkId;
+            result.OperationCode = OperationResult.None;
+            result.NewBalance = CustomerData.CurrentBalance;
+
+            if (!DrinkDeliveryMaster.IsDrinkAvailable(drinkId))
             {
+                result.OperationCode = OperationResult.Unavailable;
+                return JsonConvert.SerializeObject(result);
+            }
+            else if(CustomerData.CurrentBalance < DrinkDeliveryMaster.GetDrinkById(drinkId).Cost)
+            {
+                result.OperationCode = OperationResult.InsufficientFunds;
+                return JsonConvert.SerializeObject(result);
+            }
+            else
+            {
+                CustomerData.CurrentBalance -= DrinkDeliveryMaster.GetDrinkById(drinkId).Cost;
+                result.OperationCode = OperationResult.Success;
+                result.NewBalance = CustomerData.CurrentBalance;
+
                 DrinkDeliveryMaster.ChangeDrinkAmount(drinkId, DrinkAmountChangeAction.Decrement);
+
+                if(DrinkDeliveryMaster.GetDrinkWithAvailabilityByDrinkId(drinkId).DrinkAvailability.Amount == 0)
+                {
+                    result.OperationCode = OperationResult.LastItemBought;
+                }
+
+                return JsonConvert.SerializeObject(result);
             }
         }
     }

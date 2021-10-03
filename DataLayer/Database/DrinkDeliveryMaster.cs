@@ -139,19 +139,18 @@ namespace DataLayer.Database
                         throw new ArgumentException("Не выбрано действие!");
                     case DrinkAmountChangeAction.SetAmount:
                         _context.DrinkAvailabilities.ToList().Find(x => x.DrinkId == drinkId).Amount = amount;
-                        CheckDrinkAvailabilityAfterMath(drinkId);
                         break;
                     case DrinkAmountChangeAction.Increment:
                         _context.DrinkAvailabilities.ToList().Find(x => x.DrinkId == drinkId).Amount++;
                         break;
                     case DrinkAmountChangeAction.Decrement:
                         _context.DrinkAvailabilities.ToList().Find(x => x.DrinkId == drinkId).Amount--;
-                        CheckDrinkAvailabilityAfterMath(drinkId);
                         break;
                     default:
                         break;
                 }
                 _context.SaveChanges();
+                CheckDrinkAvailabilityAfterMath(drinkId);
             }
         }
 
@@ -165,6 +164,7 @@ namespace DataLayer.Database
                 {
                     matchDrinkAv.IsAvailable = false;
                 }
+                _context.SaveChanges();
             }
         }
 

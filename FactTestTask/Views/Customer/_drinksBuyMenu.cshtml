@@ -24,11 +24,11 @@
             <td>@item.Drink.Cost</td>
             @if (@item.DrinkAvailability.IsAvailable)
             {
-                <td class="text-right"><button type="button" id="@item.Drink.Id edit-btn" class="btn btn-success">Купить</button></td>
+                <td class="text-right"><button type="button" id="@item.Drink.Id buyBtn" class="btn btn-success" enabled onclick="buyDrink(@item.Drink.Id)">Купить</button></td>
             }
             else
             {
-                <td class="text-right"><button type="button" id="@item.Drink.Id edit-btn" class="btn btn-success" disabled>Нет в наличии</button></td>
+                <td class="text-right"><button type="button" id="@item.Drink.Id buyBtn" class="btn btn-danger" disabled>Нет в наличии</button></td>
             }
         </tr>
         }
