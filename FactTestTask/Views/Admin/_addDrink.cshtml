@@ -1,9 +1,20 @@
 ﻿@model DataLayer.Entities.DrinkWithAvailability
 
+    @*<th scope="col">Количество</th>
+    <th scope="col">Цена</th>
+    <th scope="col">Доступен</th>
+    <th scope="col">Изображение</th>*@
+
+@{ 
+    var drinkAvString = Model.DrinkAvailability.IsAvailable ? "Да" : "Нет";
+}
+
 <tr id="@Model.Drink.Id tr">
     <th scope="row">@Model.Drink.Id</th>
     <td id="drinkName">@Model.Drink.Name</td>
     <td id="drinkAmount">@Model.DrinkAvailability.Amount</td>
     <td id="drinkCost">@Model.Drink.Cost</td>
+    <td id="drinkAv">@drinkAvString</td>
+    <td id="drinkImg">...@Model.Drink.Img.Substring(Model.Drink.Img.Length - 40 > 0 ? Model.Drink.Img.Length - 40 : 0)</td>
     <td class="text-right"><button type="button" id="@Model.Drink.Id editBtn" class="btn btn-warning" onclick="startEditingDrink(this)">Редактировать</button><button type="button" id="@Model.Drink.Id deleteBtn" class="btn btn-danger" onclick="removeDrink(this)">Удалить</button></td>
 </tr>

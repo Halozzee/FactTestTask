@@ -16,10 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\img\dataobjects\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="wwwroot\img\utility\png-clipart-computer-icons-smiley-sadness-emoticon-sad-miscellaneous-face.png" />
   </ItemGroup>
 

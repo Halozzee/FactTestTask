@@ -24,8 +24,11 @@ function removeDrink(drinkRemoveBtnInfo)
 			elem.outerHTML = "";
 			elem.remove();
 			console.log("Item removed!");
+			editingDrinkId = -1;
 		}
 	});
+
+	resetInputFields();
 }
 
 function startEditingDrink(drinkEditBtnInfo)
@@ -49,6 +52,7 @@ function startEditingDrink(drinkEditBtnInfo)
 			drinkAmountTb.value = recievedObject.drinkAmount;
 			drinkCostNum.value = recievedObject.drinkCost;
 			drinkAvailabilityCb.checked = recievedObject.isDrinkAvailable;
+			drinkImgRef.value = recievedObject.img;
 			let changeBtn = document.getElementById("changeBtn");
 			changeBtn.innerHTML = "Сохранить";
 			console.log("Item edit started!");
@@ -74,6 +78,13 @@ function addDrink()
 	let drinkAmountTb = document.getElementById("drinkAmountTb");
 	let drinkCostNum = document.getElementById("drinkCostNum");
 	let drinkAvailabilityCb = document.getElementById("drinkAvailabilityCb");
+	let drinkImgRef = document.getElementById("drinkImgRef");
+
+	if (drinkAvailabilityCb.checked && parseInt(drinkAmountTb.value) <= 0)
+	{
+		alert('Для того, чтобы напиток стал доступен, нужно чтобы его количество было больше нуля!');
+		return;
+	}
 
 	let addRequest =
 	{
@@ -81,7 +92,8 @@ function addDrink()
 		drinkName: drinkNameTb.value,
 		drinkAmount: parseInt(drinkAmountTb.value),
 		drinkCost: parseInt(drinkCostNum.value),
-		isDrinkAvailable: drinkAvailabilityCb.checked
+		isDrinkAvailable: drinkAvailabilityCb.checked,
+		img: drinkImgRef.value
 	}
 
 	let requestString = JSON.stringify(addRequest);
@@ -112,6 +124,13 @@ function editDrink(drinkEditBtnInfo)
 	let drinkAmountTb = document.getElementById("drinkAmountTb");
 	let drinkCostNum = document.getElementById("drinkCostNum");
 	let drinkAvailabilityCb = document.getElementById("drinkAvailabilityCb");
+	let drinkImgRef = document.getElementById("drinkImgRef");
+
+	if (drinkAvailabilityCb.checked && parseInt(drinkAmountTb.value) <= 0)
+	{
+		alert('Для того, чтобы напиток стал доступен, нужно чтобы его количество было больше нуля!');
+		return;
+	}
 
 	let editRequest =
 	{
@@ -119,7 +138,8 @@ function editDrink(drinkEditBtnInfo)
 		drinkName: drinkNameTb.value,
 		drinkAmount: parseInt(drinkAmountTb.value),
 		drinkCost: parseInt(drinkCostNum.value),
-		isDrinkAvailable: drinkAvailabilityCb.checked
+		isDrinkAvailable: drinkAvailabilityCb.checked,
+		img: drinkImgRef.value
 	}
 
 	let requestString = JSON.stringify(editRequest);
@@ -137,7 +157,7 @@ function editDrink(drinkEditBtnInfo)
 			console.log("on data: " + data);
 			console.log("Item edited!");
 			changeBtn.innerHTML = "Создать";
-			updateEditedTableElement(editingDrinkId, drinkNameTb.value, drinkAmountTb.value, drinkCostNum.value);
+			updateEditedTableElement(editingDrinkId, drinkNameTb.value, drinkAmountTb.value, drinkCostNum.value, drinkAvailabilityCb.checked, drinkImgRef.value);
 			resetInputFields();
 			editingDrinkId = -1;
 		}
@@ -150,20 +170,26 @@ function resetInputFields()
 	let drinkAmountTb = document.getElementById("drinkAmountTb");
 	let drinkCostNum = document.getElementById("drinkCostNum");
 	let drinkAvailabilityCb = document.getElementById("drinkAvailabilityCb");
+	let drinkImgRef = document.getElementById("drinkImgRef");
 
 	drinkNameTb.value = "";
 	drinkAmountTb.value = "";
 	drinkCostNum.value = "";
+	drinkImgRef.value = "";
 	drinkAvailabilityCb.checked = false;
 }
 
-function updateEditedTableElement(drinkId, name, amount, cost)
+function updateEditedTableElement(drinkId, name, amount, cost, availability, img)
 {
 	let tableTr = document.getElementById(drinkId + " tr");
+
+	console.log(tableTr.children);
 
 	tableTr.children[1].innerHTML = name;
 	tableTr.children[2].innerHTML = amount;
 	tableTr.children[3].innerHTML = cost;
+	tableTr.children[4].innerHTML = availability ? "Да" : "Нет";
+	tableTr.children[5].innerHTML = img;
 }
 
 function toggleCoin(btn)

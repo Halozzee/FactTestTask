@@ -12,5 +12,6 @@ namespace FactTestTask.Models
         public int drinkAmount;
 		public ushort drinkCost;
         public bool isDrinkAvailable;
+        public string img;
     }
 }

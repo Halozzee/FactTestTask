@@ -16,15 +16,15 @@
 <h2 id="balanceH">Баланс: @DataLayer.Entities.CustomerData.CurrentBalance</h2>
 <br/>
 <div class="row">
-    <div class="col-md-auto border border-primary" style="padding: 20px; overflow: hidden;">
+    <div class="col-md-auto border border-primary" style="padding: 20px; overflow: hidden; height: 200px">
         <h4>Выбор монет</h4>
         <br/>
         <button type="button" id="1CoinerBtn"   class="btn @Coiner1Styler" @Coiner1Disabler onclick="addToBalance(1)" >1</button>
         <button type="button" id="2CoinerBtn"   class="btn @Coiner2Styler" @Coiner2Disabler onclick="addToBalance(2)">2</button>
         <button type="button" id="5CoinerBtn"   class="btn @Coiner5Styler" @Coiner5Disabler onclick="addToBalance(5)">5</button>
         <button type="button" id="10CoinerBtn"  class="btn @Coiner10Styler" @Coiner10Disabler onclick="addToBalance(10)">10</button>
-    </div>
-    <div class="col-md-auto" id="drinkBuyContainer">
+    </div> 
+    <div class="col-md-auto" id="drinkBuyContainer" style="margin-top:20px">
         @Html.Partial("_drinksBuyMenu", DataLayer.Database.DrinkDeliveryMaster.GetAllDrinkWithAvailabilityList());
     </div>
 </div>

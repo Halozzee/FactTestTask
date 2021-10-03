@@ -38,6 +38,7 @@
     <input type="text" size="40" id="drinkNameTb" placeholder="Введите название" style="width: 200px">
     <input type="number" size="40" id="drinkAmountTb" placeholder="Введите количество" style="width: 200px">
     <input type="number" size="40" id="drinkCostNum" placeholder="Введите цену" style="width: 200px">
+    <input type="text" size="60" id="drinkImgRef" placeholder="Укажите путь к изображению" style="width: 200px">
     <input type="checkbox" id="drinkAvailabilityCb" name="drinkAv">
     <label for="drinkAv">Напиток доступен?</label><br>
     <button class="btn btn-success" onclick="saveDrinkChanges(this)" id="changeBtn">Добавить</button>
@@ -49,6 +50,8 @@
             <th scope="col">Имя</th>
             <th scope="col">Количество</th>
             <th scope="col">Цена</th>
+            <th scope="col">Доступен</th>
+            <th scope="col">Изображение</th>
             <th scope="col"></th>
         </tr>
     </thead>

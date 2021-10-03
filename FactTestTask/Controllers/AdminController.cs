@@ -39,7 +39,11 @@ namespace FactTestTask.Controllers
         public IActionResult AddDrink(string drinkRequest)
         {
             DrinkAJAXRequest request = JsonConvert.DeserializeObject<DrinkAJAXRequest>(drinkRequest);
-            DrinkDeliveryMaster.AddNewDrink(new Drink { Name = request.drinkName, Cost = request.drinkCost});
+
+            if (request.img == "")
+                request.img = "img/dataobjects/def.png";
+
+            DrinkDeliveryMaster.AddNewDrink(new Drink { Name = request.drinkName, Cost = request.drinkCost, Img = request.img});
             int drinkBdId = DrinkDeliveryMaster.GetLastDrinkId();
             DrinkDeliveryMaster.ChangeDrinkAmount(drinkBdId, DrinkAmountChangeAction.SetAmount, request.drinkAmount);
             DrinkDeliveryMaster.ToggleDrinkAvailability(drinkBdId, request.isDrinkAvailable);
@@ -53,8 +57,9 @@ namespace FactTestTask.Controllers
             DrinkAJAXRequest request = JsonConvert.DeserializeObject<DrinkAJAXRequest>(drinkRequest);
             DrinkWithAvailability toEdit = DrinkDeliveryMaster.GetDrinkWithAvailabilityByDrinkId(request.drinkId);
 
-            toEdit.Drink.Name = request.drinkName;
-            toEdit.Drink.Cost = request.drinkCost;
+            toEdit.Drink.Name   = request.drinkName;
+            toEdit.Drink.Cost   = request.drinkCost;
+            toEdit.Drink.Img    = request.img;
             toEdit.DrinkAvailability.Amount = request.drinkAmount;
             toEdit.DrinkAvailability.IsAvailable = request.isDrinkAvailable;
 
@@ -72,6 +77,7 @@ namespace FactTestTask.Controllers
             toSend.drinkCost = drinkWithAv.Drink.Cost;
             toSend.isDrinkAvailable = drinkWithAv.DrinkAvailability.IsAvailable;
             toSend.drinkAmount = drinkWithAv.DrinkAvailability.Amount;
+            toSend.img = drinkWithAv.Drink.Img;
 
             return JsonConvert.SerializeObject(toSend);
         }

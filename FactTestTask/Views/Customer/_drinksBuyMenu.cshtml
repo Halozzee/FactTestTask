@@ -2,35 +2,29 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    var cardSize = 200;
 }
 
 @model List<DataLayer.Entities.DrinkWithAvailability>
 
-<table class="table">
-    <thead class="thead-light">
-        <tr>
-            <th scope="col">Id</th>
-            <th scope="col">Имя</th>
-            <th scope="col">Цена</th>
-            <th scope="col"></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
+<div class="container d-flex flex-wrap">
+    @foreach (var item in Model)
+    {
+    <div class="card" width="@cardSize" height="@cardSize">
+        <img class="card-img-top" src="@item.Drink.Img" width="@cardSize" height="@cardSize" enabled />
+        @if (@item.DrinkAvailability.IsAvailable)
         {
-            <tr id="@item.Drink.Id tr">
-            <th scope="row">@item.Drink.Id</th>
-            <td>@item.Drink.Name</td>
-            <td>@item.Drink.Cost</td>
-            @if (@item.DrinkAvailability.IsAvailable)
-            {
-                <td class="text-right"><button type="button" id="@item.Drink.Id buyBtn" class="btn btn-success" enabled onclick="buyDrink(@item.Drink.Id)">Купить</button></td>
-            }
-            else
-            {
-                <td class="text-right"><button type="button" id="@item.Drink.Id buyBtn" class="btn btn-danger" disabled>Нет в наличии</button></td>
-            }
-        </tr>
+            <button type="button" id="@item.Drink.Id buyBtn" class="btn btn-success" enabled onclick="buyDrink(@item.Drink.Id)">Купить</button>
         }
-    </tbody>
-</table>
+        else
+        {
+            <button type="button" id="@item.Drink.Id buyBtn" class="btn btn-danger" disabled>Нет в наличии</button>
+        }
+
+        <div class="card-body">
+            <h5 class="card-title text-center">@item.Drink.Name</h5>
+            <p class="card-text text-center">Стоимость: @item.Drink.Cost</p>
+        </div>
+    </div>
+    }
+</div>
