@@ -14,6 +14,11 @@ namespace FactTestTask.Controllers
     {
         public IActionResult Index(string passwordString)
         {
+            ViewBag.IsOneCoinAllowed    = CustomerData.IsOneCoinAllowed;
+            ViewBag.IsTwoCoinAllowed    = CustomerData.IsTwoCoinAllowed;
+            ViewBag.IsFiveCoinAllowed   = CustomerData.IsFiveCoinAllowed;
+            ViewBag.IsTenCoinAllowed    = CustomerData.IsTenCoinAllowed;
+
             List<DrinkWithAvailability> drinkAvsList = DrinkDeliveryMaster.GetAllDrinkWithAvailabilityList();
 
             passwordString = "admin";
@@ -69,6 +74,28 @@ namespace FactTestTask.Controllers
             toSend.drinkAmount = drinkWithAv.DrinkAvailability.Amount;
 
             return JsonConvert.SerializeObject(toSend);
+        }
+
+        [HttpPost]
+        public void ToggleCoin(int coinValue, bool isCoinAvailable)
+        {
+            switch (coinValue)
+            {
+                case 1:
+                    CustomerData.IsOneCoinAllowed = isCoinAvailable;
+                    break;
+                case 2:
+                    CustomerData.IsTwoCoinAllowed = isCoinAvailable;
+                    break;
+                case 5:
+                    CustomerData.IsFiveCoinAllowed = isCoinAvailable;
+                    break;
+                case 10:
+                    CustomerData.IsTenCoinAllowed = isCoinAvailable;
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

@@ -130,7 +130,8 @@ function editDrink(drinkEditBtnInfo)
 			drinkRequest: requestString
 		},
 
-		success: function (data) {
+		success: function (data)
+		{
 			console.log("on data: " + data)
 			console.log("Item edited!");
 		}
@@ -163,4 +164,51 @@ function updateEditedTableElement(drinkId, name, amount, cost)
 	tableTr.children[1].innerHTML = name;
 	tableTr.children[2].innerHTML = amount;
 	tableTr.children[3].innerHTML = cost;
+}
+
+function toggleCoin(btn)
+{
+	let coinValue = parseInt(btn.id.replace("CoinerBtn", ""));
+	let isCoinAvailable = false;
+
+	if (btn.innerHTML.includes("Разрешить монеты номиналом"))
+		isCoinAvailable = false;
+	else
+		isCoinAvailable = true;
+
+	isCoinAvailable = !isCoinAvailable;
+
+	$.ajax({
+		type: "POST",
+		url: "Admin/ToggleCoin",
+		data:
+		{
+			coinValue: coinValue,
+			isCoinAvailable: isCoinAvailable
+		},
+
+		success: function (data)
+		{
+			console.log("on data: " + data)
+			console.log("Coin " + coinValue + " toggled to " + isCoinAvailable);
+		}
+	});
+
+	changeCoinerBtnByCoinAvailability(btn, isCoinAvailable);
+}
+
+function changeCoinerBtnByCoinAvailability(btn, isCoinAvailable)
+{
+	if (isCoinAvailable)
+	{
+		btn.innerHTML = btn.innerHTML.replace("Разрешить монеты номиналом", "Запретить монеты номиналом");
+		btn.classList.remove("btn-success");
+		btn.classList.add("btn-danger");
+	}
+	else
+	{
+		btn.innerHTML = btn.innerHTML.replace("Запретить монеты номиналом", "Разрешить монеты номиналом");
+		btn.classList.remove("btn-danger");
+		btn.classList.add("btn-success");
+	}
 }

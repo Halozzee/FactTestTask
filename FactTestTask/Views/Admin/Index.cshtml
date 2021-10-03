@@ -2,6 +2,15 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    var Coiner1Styler   = ViewBag.IsOneCoinAllowed  ? "btn-danger" : "btn-success";
+    var Coiner2Styler   = ViewBag.IsTwoCoinAllowed  ? "btn-danger" : "btn-success";
+    var Coiner5Styler   = ViewBag.IsFiveCoinAllowed ? "btn-danger" : "btn-success";
+    var Coiner10Styler  = ViewBag.IsTenCoinAllowed  ? "btn-danger" : "btn-success";
+
+    var Coiner1Inner    = ViewBag.IsOneCoinAllowed  ? "Запретить монеты номиналом 1"    : "Разрешить монеты номиналом 1";
+    var Coiner2Inner    = ViewBag.IsTwoCoinAllowed  ? "Запретить монеты номиналом 2"    : "Разрешить монеты номиналом 2";
+    var Coiner5Inner    = ViewBag.IsFiveCoinAllowed ? "Запретить монеты номиналом 5"    : "Разрешить монеты номиналом 5";
+    var Coiner10Inner   = ViewBag.IsTenCoinAllowed  ? "Запретить монеты номиналом 10"   : "Разрешить монеты номиналом 10";
 }
 
 @model List<DataLayer.Entities.DrinkWithAvailability>
@@ -11,13 +20,14 @@
     <h1>Добро пожаловать.</h1>
     <h2>Что мы изменим сегодня?</h2>
 </div>
-<br />
-<br />
+<br/>
+<br/>
 <div id="btn-group">
-    <button type="button" id="1CoinerBtn" class="btn btn-danger">Запретить монеты номиналом 1</button>
-    <button type="button" id="2CoinerBtn" class="btn btn-danger">Запретить монеты номиналом 2</button>
-    <button type="button" id="5CoinerBtn" class="btn btn-danger">Запретить монеты номиналом 5</button>
-    <button type="button" id="10CoinerBtn" class="btn btn-danger">Запретить монеты номиналом 10</button>
+    
+    <button type="button" id="1CoinerBtn" class="btn @Coiner1Styler" onclick="toggleCoin(this)">@Coiner1Inner</button>
+    <button type="button" id="2CoinerBtn" class="btn @Coiner2Styler" onclick="toggleCoin(this)">@Coiner2Inner</button>
+    <button type="button" id="5CoinerBtn" class="btn @Coiner5Styler" onclick="toggleCoin(this)">@Coiner5Inner</button>
+    <button type="button" id="10CoinerBtn" class="btn @Coiner10Styler" onclick="toggleCoin(this)">@Coiner10Inner</button>
 </div>
 <br />
 <br />
