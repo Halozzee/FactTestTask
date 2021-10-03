@@ -21,8 +21,6 @@ namespace FactTestTask.Controllers
 
             List<DrinkWithAvailability> drinkAvsList = DrinkDeliveryMaster.GetAllDrinkWithAvailabilityList();
 
-            passwordString = "admin";
-
             if (passwordString == "admin")
                 return View(drinkAvsList);
             else

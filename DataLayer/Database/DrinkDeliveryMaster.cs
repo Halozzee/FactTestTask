@@ -113,7 +113,7 @@ namespace DataLayer.Database
                 _context.Drinks.Add(drink);
                 _context.SaveChanges();
                 var drinksList = _context.Drinks.ToList();
-                _context.DrinkAvailabilities.Add(new DrinkAvailability { DrinkId = drinksList[drinksList.Count - 1].Id, Amount = 0 });
+                _context.DrinkAvailabilities.Add(new DrinkAvailability { DrinkId = drinksList[drinksList.Count - 1].Id, Amount = 1, IsAvailable = true });
                 _context.SaveChanges();
             }
         }

@@ -25,7 +25,7 @@
         <button type="button" id="10CoinerBtn"  class="btn @Coiner10Styler" @Coiner10Disabler onclick="addToBalance(10)">10</button>
     </div> 
     <div class="col-md-auto" id="drinkBuyContainer" style="margin-top:20px">
-        @Html.Partial("_drinksBuyMenu", DataLayer.Database.DrinkDeliveryMaster.GetAllDrinkWithAvailabilityList());
+        @Html.Partial("_drinksBuyMenu", DataLayer.Database.DrinkDeliveryMaster.GetAllDrinkWithAvailabilityList())
     </div>
 </div>
 

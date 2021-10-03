@@ -33,17 +33,16 @@ function buyDrink(drinkId)
 			console.log("OC: " + transactionResult.OperationResult);
 
 			let buyBtn = document.getElementById(drinkId + " buyBtn");
-
 			switch (transactionResult.OperationCode)
 			{
 				case 1:
-					balanceH.innerHTML = "Баланс: " + transactionResult.NewBalance;
+					balanceH.innerHTML = "Баланс: " + transactionResult.NewBalance.toString() + " (Сдача: " + transactionResult.NewBalance + ")";
 					break;
 				case 2:
 					balanceH.innerHTML = "Недостаточно средств (Баланс: " + transactionResult.NewBalance + ")";
 					break;
 				case 3:
-					balanceH.innerHTML = "Баланс: " + transactionResult.NewBalance;
+					balanceH.innerHTML = "Баланс: " + transactionResult.NewBalance.toString() + " (Сдача: " + transactionResult.NewBalance + ")";
 					buyBtn.innerHTML = "Нет в наличии";
 					buyBtn.classList.remove("btn-success");
 					buyBtn.classList.add("btn-danger");
